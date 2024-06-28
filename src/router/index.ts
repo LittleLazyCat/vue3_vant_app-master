@@ -79,7 +79,7 @@ const router = createRouter({
           name: 'deving',
           component: () => import('../views/deving/index.vue'),
           meta: {
-            title: 'deving-page',
+            title: '称重',
 
           }
         }
