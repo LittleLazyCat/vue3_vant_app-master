@@ -1,7 +1,7 @@
 <template>
     <div class="content">
         <van-nav-bar class="bar" :title="(title as string)" v-if="showBack" />
-        <van-nav-bar class="bar" :title="(title as string)" :left-text="'返回'" left-arrow @click-left="onClickLeft" v-else />
+       <van-nav-bar class="bar" :title="(title as string)" :left-text="''" left-arrow @click-left="onClickLeft" v-else />
         <div class="main">
             <RouterView></RouterView>
         </div>
@@ -74,7 +74,7 @@ watchEffect(() => {
 
 const active = ref('home');
 const onClickLeft = () => {
-    history.back()
+   // history.back()
 }
 
 </script>

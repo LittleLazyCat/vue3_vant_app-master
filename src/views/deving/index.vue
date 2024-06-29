@@ -1,13 +1,12 @@
 <template>
     <div> 
-       
         <h1>总价: {{totalPrice}}元</h1>
-        <br>
+        <h1>总重量: {{totalZhong}}公斤</h1>
         <table>
             <tr>
                 <td>单价： </td>
                 <td> <form  style="font-size:large;font-weight: bold;" >
-                        <input style="width:35%;"  type="text"  v-model.number="price">元
+                        <input style="width:35%;"  type="text"  v-model.number="price" ref="inputPriceBound">元
                      </form>
                 </td>
             </tr>
@@ -16,7 +15,7 @@
                     名称：
                 </td>
                 <td>
-                    <select  id="id1" style="font-size: x-large;" v-model="education">
+                    <select  id="id1" style="font-size: x-large;" v-model="name">
                         <option disabled value="select"> 请选择产品</option>
                         <option value="打包带" >打包带</option>
                         <option value="防水布">防水布</option>
@@ -32,7 +31,7 @@
                 </td>
                 <td>
                     <form style="font-size:large;font-weight: bold;"> 
-                        <input style="width:35%;" type="text" v-model="name">
+                        <input style="width:35%;" type="text" v-model="content">
                     </form>
                 </td>
             </tr>
@@ -50,22 +49,39 @@
         </table> 
         <van-button  type="primary" class="commit-btn" @click="insert">添加</van-button>
         <br>
-        <ul v-if="list.length !== 0" style="font-size:xx-large;">
-            <li v-for="(item,index) in list" :key="item">
+        <ul v-if="list.length !== 0">
+            <li v-for="(item,index) in list" :key="item" style="font-size:x-large;font-weight: bold;">
                 <p>名称：{{item.name}}；单价：{{item.price}}元/公斤；重量：{{item.count}}公斤</p>
-                <van-button @click="() => delThisItem(index)">删除</van-button>
+                <van-button @click="() => delThisItem(index)" class="commit-btn">删 &nbsp;  &nbsp; 除&nbsp;  &nbsp; 上&nbsp;  &nbsp; 方&nbsp;  &nbsp; 称&nbsp;  &nbsp; 重&nbsp;  &nbsp; 记&nbsp;  &nbsp; 录</van-button>
             </li> 
         </ul> 
     </div>
 </template>
 <script setup lang='ts'>
-import { computed } from 'vue';
+import { countDownProps } from 'vant';
+import { computed, nextTick, onMounted } from 'vue';
 import { reactive, ref } from 'vue';
 
  
- const education = ref("")
+ const content = ref("")
  const price = ref()
 
+const inputPriceBound = ref(null)
+onMounted(() => {
+    nextTick(() => {
+        inputPriceBound.value.focus()
+    })
+})
+
+ 
+
+ const totalZhong = computed(() =>{
+    let all = 0
+    list.value.forEach( v =>{
+    all += v.count;
+})
+    return all.toFixed(2)
+ })
  const totalPrice = computed(()=>{
     let sum = 0;
     list.value.forEach( v =>{
@@ -73,16 +89,26 @@ import { reactive, ref } from 'vue';
 })
     return sum.toFixed(2)
  })
- const name  = ref("")
- const zhongliang = ref()
+const name  = ref("")
+const zhongliang = ref()
 
  
 let list = ref([])
 
 function insert(){ 
+    if(price.value > 0 && zhongliang.value > 0){
+        if(name.value == "" && content.value == ""){
+                name.value = "其他产品"
+        }
 
-    list.value.push({name:education.value + name.value,price:price.value,count:zhongliang.value})
-     
+        list.value.push({name:name.value + content.value,price:price.value,count:zhongliang.value})
+        zhongliang.value = "" 
+        
+    }else{
+        alert("数据不完整，无法添加！")
+    }
+
+  
 }
 
 function delThisItem(index: number){
@@ -90,7 +116,6 @@ function delThisItem(index: number){
         list.value = list.value.filter((item,itemIndex) => {return itemIndex !== index})
     }
    
-
 }
 
 
