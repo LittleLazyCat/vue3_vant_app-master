@@ -63,7 +63,7 @@
         <br>
         <ul v-if="list.length !== 0">
             <li v-for="(item,index) in list" :key="item" style="font-size:x-large;font-weight: bold;">
-                <p>名称：{{item.name}}；单价：{{item.price}}元/公斤；重量：{{item.count}}公斤</p>
+                <p>名称：{{item['name']}}；单价：{{item['price']}}元/公斤；重量：{{item['count']}}公斤</p>
                 <van-button @click="() => delThisItem(index)" class="commit-btn">删 &nbsp;  &nbsp; 除&nbsp;  &nbsp; 上&nbsp;  &nbsp; 方&nbsp;  &nbsp; 称&nbsp;  &nbsp; 重&nbsp;  &nbsp; 记&nbsp;  &nbsp; 录</van-button>
             </li> 
         </ul> 
@@ -77,35 +77,30 @@ import { reactive, ref } from 'vue';
  
  const content = ref("")
  const price = ref()
+ const name  = ref("")
+ const zhongliang = ref()
 
-const inputPriceBound = ref(null)
-onMounted(() => {
-    nextTick(() => {
-        inputPriceBound.value.focus()
-    })
-})
-
- 
-
+  
  const totalZhong = computed(() =>{
     let all = 0
-    list.value.forEach( v =>{
-    all += v.count;
+    list.value.forEach( (v: { [x: string]: number; }) =>{
+            all += v['count'];
+        
+    
 })
     return all.toFixed(2)
  })
  const totalPrice = computed(()=>{
     let sum = 0;
-    list.value.forEach( v =>{
-    sum += (v.price * v.count);
+    list.value.forEach( (v: { [x: string]: number; }) =>{
+    sum += (v['price'] * v["count"]);
 })
     return sum.toFixed(2)
  })
-const name  = ref("")
-const zhongliang = ref()
+
 
  
-let list = ref([])
+let list:any|null = ref([])
 
 function insert(){ 
     if(price.value > 0 && zhongliang.value > 0){
@@ -115,7 +110,7 @@ function insert(){
 
         list.value.push({name:name.value + content.value,price:price.value,count:zhongliang.value})
         zhongliang.value = "" 
-        
+        content.value = ""
     }else{
         alert("数据不完整，无法添加！")
     }
@@ -125,14 +120,14 @@ function insert(){
 
 function delThisItem(index: number){
     if(confirm("是否删除")){ 
-        list.value = list.value.filter((item,itemIndex) => {return itemIndex !== index})
+        list.value = list.value.filter((item: any,itemIndex: number) => {return itemIndex !== index})
     }
    
 }
 
 function updatePrice(){
-    list.value.forEach( v =>{
-     v.price = price.value
+    list.value.forEach( (v: { [x: string]: any; }) =>{
+        v['price'] = price.value
 })
 }
 </script>
