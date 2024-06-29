@@ -4,10 +4,13 @@
         <h1>总重量: {{totalZhong}}公斤</h1>
         <table>
             <tr>
-                <td>单价： </td>
-                <td> <form  style="font-size:large;font-weight: bold;" >
+                <td style="width: 15%;">单价： </td>
+                <td  style="width: 35%;"> <form  style="font-size:large;font-weight: bold;" >
                         <input style="width:35%;"  type="text"  v-model.number="price" ref="inputPriceBound">元
                      </form>
+                </td>
+                <td style="width: 30%;">
+                    <van-button  type="primary" class="commit-btn" @click="updatePrice">一键改价</van-button>
                 </td>
             </tr>
             <tr>
@@ -24,6 +27,9 @@
                         <option value=""></option>
                     </select>
                 </td>
+                <td>
+                    
+                </td>
             </tr>
             <tr>
                 <td>
@@ -33,6 +39,9 @@
                     <form style="font-size:large;font-weight: bold;"> 
                         <input style="width:35%;" type="text" v-model="content">
                     </form>
+                </td>
+                <td>
+                    
                 </td>
             </tr>
 
@@ -44,6 +53,9 @@
                     <form style="font-size:large;font-weight: bold;">  
                         <input style="width:35%;" type="text" v-model.number="zhongliang">公斤
                     </form>
+                </td>
+                <td>
+                    
                 </td>
             </tr> 
         </table> 
@@ -118,7 +130,11 @@ function delThisItem(index: number){
    
 }
 
-
+function updatePrice(){
+    list.value.forEach( v =>{
+     v.price = price.value
+})
+}
 </script>
 <style>
 .commit-btn {
