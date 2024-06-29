@@ -6,6 +6,8 @@ import Vant from 'vant';
 import { Lazyload, Toast, Dialog, ActionSheet, SwipeCell, SubmitBar, ImagePreview } from 'vant';
 // 2. 引入组件样式
 import 'vant/lib/index.css';
+import 'bootstrap/dist/css/bootstrap.css'
+
 // 全局配置
 import { ConfigProvider } from 'vant';
 // 瀑布流布局vue-masonry
