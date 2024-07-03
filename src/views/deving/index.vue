@@ -6,7 +6,7 @@
             <tr  >
                 <td style="width: 15%;">单价： </td>
                 <td  style="width: 35%;"> <form  style="font-size:large;font-weight: bold;" >
-                        <input style="width:35%;"  type="text"  v-model.number="price" ref="inputPriceBound">元
+                        <input style="width:50%;"  type="text"  v-model.number="price" ref="inputPriceBound">元
                      </form>
                 </td>
                 <td style="width: 30%;">
@@ -37,7 +37,7 @@
                 </td>
                 <td>
                     <form style="font-size:large;font-weight: bold;"> 
-                        <input style="width:35%;" type="text" v-model="content">
+                        <input style="width:88%;" type="text" v-model="content">
                     </form>
                 </td>
                 <td>
@@ -50,7 +50,7 @@
                 </td>
                 <td>
                     <form style="font-size:large;font-weight: bold;">  
-                        <input style="width:35%;" type="text" v-model.number="zhongliang">
+                        <input style="width:88%;" type="text" v-model.number="zhongliang">
                     </form>
                 </td>
                 <td>
@@ -140,7 +140,9 @@ function insert(){
         if(name.value == "" && content.value == ""){
                 name.value = "其他产品"
         }
-
+        if(danwei.value.length == 0 ){
+            danwei.value = "公斤"
+        }
         list.value.push({name:name.value + content.value,price:price.value,count:zhongliang.value,danwei:danwei.value})
         zhongliang.value = "" 
         content.value = ""
