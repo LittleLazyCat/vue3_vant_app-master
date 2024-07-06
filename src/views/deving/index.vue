@@ -1,9 +1,27 @@
 <template>
     <div> 
-        <h1>总价: {{totalPrice}}元</h1>
-        <h1>总重量: {{totalZhong}}{{danwei}}</h1>
+        <div>
+            <table>
+                <tr>
+                    <td style="width: 90%;"><h1>总价: {{totalPrice}}元</h1></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                
+            </table>
+        </div>
+       <div>
+            <table>
+                <tr>
+                    <td style="width: 90%;"> <h1>总重量: {{totalZhong}}{{danwei}}</h1></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </table>
+       </div>
+       
         <table class="input-font">
-            <tr  >
+            <tr>
                 <td style="width: 15%;">单价： </td>
                 <td  style="width: 35%;"> <form  style="font-size:large;font-weight: bold;" >
                         <input style="width:50%;"  type="text"  v-model.number="price" ref="inputPriceBound">元
@@ -41,7 +59,7 @@
                     </form>
                 </td>
                 <td>
-                    
+                    <van-button  type="primary" class="commit-btn" @click="clearAll">一键归零</van-button>
                 </td>
             </tr> 
             <tr>
@@ -114,7 +132,7 @@ const unUpdateRow = ref(false)
  
  
   
- const totalZhong = computed(() =>{
+const totalZhong = computed(() =>{
     let all = 0
     list.value.forEach( (v: { [x: string]: number; }) =>{
             all += v['count'];
@@ -123,7 +141,7 @@ const unUpdateRow = ref(false)
 })
     return all.toFixed(1)
  })
- const totalPrice = computed(()=>{
+const totalPrice = computed(()=>{
     let sum = 0;
     list.value.forEach( (v: { [x: string]: number; }) =>{
     sum += (v['price'] * v["count"]);
@@ -174,7 +192,12 @@ function updateRow() {
 function saveRow(){ 
     unUpdateRow.value = false;
 }
-   
+
+function clearAll(){  
+    if(confirm("是否归零")){ 
+    list.value.splice(0, list.value.length);
+}
+}
 
 </script>
 <style>
