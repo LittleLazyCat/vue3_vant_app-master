@@ -1,7 +1,7 @@
 /**
  * 问诊仓库
  */
-import type { ConsultType } from '@/enums'
+//import type { ConsultType } from '@/enums'
 import type { PartialConsult, illnessType } from '@/types/consult'
 import { defineStore } from 'pinia'
 import { ref } from 'vue'
@@ -15,7 +15,7 @@ export const useConsultStore = defineStore(
     // 1.问诊记录数据，创建订单使用
     const consult = ref<PartialConsult>({})
     // 2.修改问诊类型type方法：1找医生 2极速问诊 3开药问诊
-    const setType = (type: ConsultType) => (consult.value.type = type)
+    //const setType = (type: ConsultType) => (consult.value.type = type)
     // 3.修改极速问诊类型illnessType方法：0普通 1三甲
     const setIllnessType = (type: 0 | 1) => (consult.value.illnessType = type)
     // 4.修改科室id方法
@@ -33,9 +33,6 @@ export const useConsultStore = defineStore(
     const setCoupon = (id?: string) => (consult.value.couponId = id)
     // 8.清空问诊记录方法
     const clear = () => (consult.value = {})
-    return { consult, setType, setIllnessType, setDep, setIllness, setPatient, setCoupon, clear }
-  },
-  {
-    persist: true
+    return { consult,  setIllnessType, setDep, setIllness, setPatient, setCoupon, clear }
   }
 )

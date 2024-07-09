@@ -31,15 +31,12 @@ declare module '@vue/runtime-core' {
     VanGrid: typeof import('vant/es')['Grid']
     VanGridItem: typeof import('vant/es')['GridItem']
     VanImage: typeof import('vant/es')['Image']
-    VanNavBar: typeof import('vant/es')['NavBar']
     VanSearch: typeof import('vant/es')['Search']
     VanStepper: typeof import('vant/es')['Stepper']
     VanSubmitBar: typeof import('vant/es')['SubmitBar']
     VanSwipe: typeof import('vant/es')['Swipe']
     VanSwipeCell: typeof import('vant/es')['SwipeCell']
     VanSwipeItem: typeof import('vant/es')['SwipeItem']
-    VanTabbar: typeof import('vant/es')['Tabbar']
-    VanTabbarItem: typeof import('vant/es')['TabbarItem']
     VanTag: typeof import('vant/es')['Tag']
   }
 }

@@ -1,9 +1,9 @@
 <template>
-    <div> 
+    <div class="background-color"> 
         <div>
             <table>
                 <tr>
-                    <td style="width: 90%;"><h1>总价: {{totalPrice}}元</h1></td>
+                    <td style="width: 90%;color: black;"><h1>总价: {{totalPrice}}元</h1></td>
                     <td></td>
                     <td></td>
                 </tr>
@@ -13,27 +13,27 @@
        <div>
             <table>
                 <tr>
-                    <td style="width: 90%;"> <h1>总重量: {{totalZhong}}{{danwei}}</h1></td>
+                    <td style="width: 90%;color: black;"> <h1>总重量: {{totalZhong}}{{danwei}}</h1></td>
                     <td></td>
                     <td></td>
                 </tr>
             </table>
        </div>
        
-        <table class="input-font">
+        <table class="table">
             <tr>
-                <td style="width: 15%;">单价： </td>
-                <td  style="width: 35%;"> <form  style="font-size:large;font-weight: bold;" >
-                        <input style="width:50%;"  type="text"  v-model.number="price" ref="inputPriceBound">元
+                <td class="td">单&nbsp;&nbsp;价：</td>
+                <td  class="td"> <form  style="font-size:large;font-weight: bold;" >
+                        <input style="width:70%;"  type="text"  v-model.number="price" ref="inputPriceBound">元
                      </form>
                 </td>
-                <td style="width: 30%;">
+                <td class="td">
                     <van-button  type="primary" class="commit-btn" @click="updatePrice">一键改价</van-button>
                 </td>
             </tr>
             <tr>
                 <td>
-                    名称：
+                    名&nbsp;&nbsp;称：
                 </td>
                 <td>
                     <select style="font-size: x-large;" v-model="name">
@@ -51,7 +51,7 @@
             </tr>
             <tr>
                 <td>
-                    备注：
+                    备&nbsp;&nbsp;注：
                 </td>
                 <td>
                     <form style="font-size:large;font-weight: bold;"> 
@@ -64,7 +64,7 @@
             </tr> 
             <tr>
                 <td>
-                    重量：
+                    重&nbsp;&nbsp;量：
                 </td>
                 <td>
                     <form style="font-size:large;font-weight: bold;">  
@@ -85,7 +85,7 @@
         <br>
          
         <table class="table table-striped table-hover table-bordered">
-            <thead>
+            <thead style="color: black;">
                 <tr> 
                     <th>序号</th>
                     <th>名称</th>
@@ -95,7 +95,7 @@
                     <th>操作</th>
                 </tr>
             </thead>
-           <tbody v-if="list.length !== 0">
+           <tbody v-if="list.length !== 0" style="color: black;">
             <tr v-for="(item,i) in list" :key="item"> 
                 <td>{{i+1}}</td>
                 <td v-if="unUpdateRow == true"><input class="form-control form-control-sm" style="text-align:center" v-model="item.name"></td>
@@ -213,5 +213,19 @@ function clearAll(){
     .input-font{
         font-weight: bold;
         font-size:large;
+        color: black;
+    }
+    .background-color {
+        background-color: white;
+    } 
+    .table {
+        width: 100%; /* 让表格宽度为100% */
+        table-layout: auto; /* 让单元格宽度能自适应 */
+        color: black;
+    }
+   .td {
+        
+        text-align: left; /* 单元格内文本对齐方式 */
+        padding: 4px; /* 单元格内边距 */
     }
 </style>

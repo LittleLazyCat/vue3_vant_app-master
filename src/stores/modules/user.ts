@@ -33,10 +33,10 @@ export const useUserStore = defineStore(
   // }
 
   // 方式2：自定义存储的key，指定存储哪些数据
-  {
-    persist: {
-      key: 'cp-user', //存储的名字
-      paths: ['user'] //存储的变量
-    }
-  }
+  //{
+    //persist: {
+      //key: 'cp-user', //存储的名字
+      //paths: ['user'] //存储的变量
+    //}
+  //}
 )
