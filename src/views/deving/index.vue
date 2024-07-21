@@ -24,15 +24,15 @@
             <tr>
                 <td class="td">单&nbsp;&nbsp;价：</td>
                 <td  class="td"> <form  style="font-size:large;font-weight: bold;" >
-                        <input style="width:70%;"  type="text"  v-model.number="price" ref="inputPriceBound">元
+                        <input style="width:70%;"  type="text"  @click="inputPrice" v-model.number="price" ref="inputPriceBound">元
                      </form>
-                </td>
+                </td> 
                 <td class="td">
                     <van-button  type="primary" class="commit-btn" @click="updatePrice">一键改价</van-button>
                 </td>
             </tr>
             <tr>
-                <td>
+                <td class="td">
                     名&nbsp;&nbsp;称：
                 </td>
                 <td>
@@ -79,8 +79,9 @@
                         <option value="吨">吨</option> 
                     </select>
                 </td>
-            </tr> 
+            </tr>   
         </table> 
+     
         <van-button  type="primary" class="commit-btn" @click="insert">添加</van-button>
         <br>
          
@@ -114,24 +115,65 @@
         </table>
         <br>
         <van-button  v-if="unUpdateRow == false && list.length !== 0" type="primary" class="update-btn" @click="updateRow">修改</van-button>
-        <van-button  v-if="unUpdateRow == true && list.length !== 0" type="primary" class="update-btn" @click="saveRow">保存</van-button>
+        <van-button  v-if="unUpdateRow == true && list.length !== 0" type="primary" class="update-btn" @click="saveRow">保存</van-button> 
+    </div>
+    <div>
+      <div>
+        中文：<input
+          id="elem"
+          style="width: 400px; height: 25px; font-size: 20px"
+          type="text"
+          v-model="value"
+          keyboard="true" data-mode="di_git"
+        />
+      </div>
+      <div style="height: 400px"></div>
+      <!-- {params: blurHide}：布尔值，ture为输入框失去焦点时自动隐藏键盘 -->
+      <keyboard
+        :transitionTime="'0.5s'"
+        :maxQuantify="10"
+        :showKeyboard="showKeyboard"
+        @clickKey="clickKey"
+        float
+        :manyDict="manyDict"
+        :singleDict="singleDict"
+        @clickNumber="clickNumber"
+        :blurHide="false"  
+      ></keyboard>
     </div>
 </template>
 <script setup lang='ts'>
 import { computed} from 'vue';
-import { reactive, ref } from 'vue';
+import { reactive, ref } from 'vue';     
+import keyboard from "../components/keyboard/keyboardIndex.vue";
 
- 
- 
 const content = ref("")
 const price = ref()
 const name  = ref("")
 const zhongliang = ref()
 const danwei=ref("")
-const unUpdateRow = ref(false)
- 
- 
-  
+const unUpdateRow = ref(false)  
+
+
+
+const value = ref("");
+const showKeyboard = ref(false);
+
+//点击键盘的值
+const clickKey = (key) => {
+  // console.log("key-->>",key);
+}
+//点击键盘时数字的值
+const clickNumber = (key) => {
+  // console.log("key-->>",key);
+}
+const manyDict = ref("dict/chowder.json")
+const singleDict = ref("dict/baseDict.json")
+
+
+
+
+
 const totalZhong = computed(() =>{
     let all = 0
     list.value.forEach( (v: { [x: string]: number; }) =>{
@@ -199,8 +241,13 @@ function clearAll(){
 }
 }
 
+function inputPrice(){
+ 
+}
+
 </script>
 <style>
+
     .commit-btn {
         width: 100%; 
         left: 0;
