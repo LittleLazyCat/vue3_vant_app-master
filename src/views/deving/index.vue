@@ -24,8 +24,19 @@
             <tr>
                 <td class="td">单&nbsp;&nbsp;价：</td>
                 <td  class="td"> <form  style="font-size:large;font-weight: bold;" >
-                        <input style="width:70%;"  type="text"  @click="inputPrice" v-model.number="price" ref="inputPriceBound">元
+                        <input style="width:70%;"  type="text"  @click="inputPrice"  keyboard="true" data-mode="di_git" v-model.number="price" ref="inputPriceBound">元
                      </form>
+                     <keyboard
+                        :transitionTime="'0.5s'"
+                        :maxQuantify="10"
+                        :showKeyboard="showKeyboard"
+                         @clickKey="clickKey"
+                        float
+                        :manyDict="manyDict"
+                        :singleDict="singleDict"
+                        @clickNumber="clickNumber"
+                        :blurHide="true"  
+                        ></keyboard>
                 </td> 
                 <td class="td">
                     <van-button  type="primary" class="commit-btn" @click="updatePrice">一键改价</van-button>
@@ -68,8 +79,20 @@
                 </td>
                 <td>
                     <form style="font-size:large;font-weight: bold;">  
-                        <input style="width:88%;" type="text" v-model.number="zhongliang">
+                        <input style="width:88%;" type="text" keyboard="true" data-mode="di_git" v-model.number="zhongliang">
                     </form>
+                    
+                    <keyboard
+                        :transitionTime="'0.5s'"
+                        :maxQuantify="10"
+                        :showKeyboard="showKeyboard"
+                         @clickKey="clickKey"
+                        float
+                        :manyDict="manyDict"
+                        :singleDict="singleDict"
+                        @clickNumber="clickNumber"
+                        :blurHide="true"  
+                        ></keyboard>
                 </td>
                 <td>
                     <select style="font-size: x-large;" v-model="danwei">
@@ -116,31 +139,7 @@
         <br>
         <van-button  v-if="unUpdateRow == false && list.length !== 0" type="primary" class="update-btn" @click="updateRow">修改</van-button>
         <van-button  v-if="unUpdateRow == true && list.length !== 0" type="primary" class="update-btn" @click="saveRow">保存</van-button> 
-    </div>
-    <div>
-      <div>
-        中文：<input
-          id="elem"
-          style="width: 400px; height: 25px; font-size: 20px"
-          type="text"
-          v-model="value"
-          keyboard="true" data-mode="di_git"
-        />
-      </div>
-      <div style="height: 400px"></div>
-      <!-- {params: blurHide}：布尔值，ture为输入框失去焦点时自动隐藏键盘 -->
-      <keyboard
-        :transitionTime="'0.5s'"
-        :maxQuantify="10"
-        :showKeyboard="showKeyboard"
-        @clickKey="clickKey"
-        float
-        :manyDict="manyDict"
-        :singleDict="singleDict"
-        @clickNumber="clickNumber"
-        :blurHide="false"  
-      ></keyboard>
-    </div>
+    </div> 
 </template>
 <script setup lang='ts'>
 import { computed} from 'vue';
