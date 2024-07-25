@@ -24,7 +24,7 @@
             <tr>
                 <td class="td">单&nbsp;&nbsp;价：</td>
                 <td  class="td"> <form  style="font-size:large;font-weight: bold;" >
-                        <input style="width:70%;"  type="text"  @click="inputPrice"  keyboard="true" data-mode="di_git" v-model.number="price" ref="inputPriceBound">元
+                        <input style="width:70%;"  type="text"  @click="inputPrice"  keyboard="true" data-mode="di_git" readonly v-model.number="price" ref="inputPriceBound">元
                      </form>
                      <keyboard
                         :transitionTime="'0.5s'"
@@ -79,7 +79,7 @@
                 </td>
                 <td>
                     <form style="font-size:large;font-weight: bold;">  
-                        <input style="width:88%;" type="text" keyboard="true" data-mode="di_git" v-model.number="zhongliang">
+                        <input style="width:88%;" type="text" keyboard="true" data-mode="di_git" readonly v-model.number="zhongliang">
                     </form>
                     
                     <keyboard
@@ -91,7 +91,7 @@
                         :manyDict="manyDict"
                         :singleDict="singleDict"
                         @clickNumber="clickNumber"
-                        :blurHide="true"  
+                        :blurHide="false"  
                         ></keyboard>
                 </td>
                 <td>
@@ -128,7 +128,7 @@
                 <td v-else>{{ item.danwei }}</td> 
                 <td v-if="unUpdateRow == true"><input class="form-control form-control-sm" style="text-align:center" v-model="item.price"></td>
                 <td v-else>{{ item.price }}</td> 
-                <td v-if="unUpdateRow == true"><input class="form-control form-control-sm" style="text-align:center" v-model="item.count"></td>
+                <td v-if="unUpdateRow == true"><input class="form-control form-control-sm" style="text-align:center" readonly v-model="item.count"> </td>
                 <td v-else>{{ item.count }}</td>  
                 <td> 
                     <button @click="() => delThisItem(i)" class="btn brn-primary">删除</button>
