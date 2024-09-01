@@ -22,7 +22,7 @@
        
         <table class="table">
             <tr>
-                <td class="td">单&nbsp;&nbsp;价：</td>
+                <td class="td" :style="{ color: priceColor }" >单&nbsp;&nbsp;价：</td>
                 <td  class="td"> <form  style="font-size:large;font-weight: bold;" >
                         <input style="width:70%;"  type="text"  @click="inputPrice"  keyboard="true" data-mode="di_git" readonly v-model.number="price" ref="inputPriceBound">元
                      </form>
@@ -74,12 +74,12 @@
                 </td>
             </tr> 
             <tr>
-                <td>
+                <td :style="{ color: zhongliangColor }">
                     重&nbsp;&nbsp;量：
                 </td>
                 <td>
                     <form style="font-size:large;font-weight: bold;">  
-                        <input style="width:88%;" type="text" keyboard="true" data-mode="di_git" readonly v-model.number="zhongliang">
+                        <input style="width:88%;" type="text" @click="inputZhongliang" keyboard="true" data-mode="di_git" readonly v-model.number="zhongliang">
                     </form>
                     
                     <keyboard
@@ -152,8 +152,8 @@ const name  = ref("")
 const zhongliang = ref()
 const danwei=ref("")
 const unUpdateRow = ref(false)  
-
-
+const priceColor = ref('#000000'); // 初始颜色为黑色
+const zhongliangColor = ref('#000000'); // 初始颜色为黑色
 
 const value = ref("");
 const showKeyboard = ref(false);
@@ -241,8 +241,19 @@ function clearAll(){
 }
 
 function inputPrice(){
- 
+    const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+    zhongliangColor.value = colors[6];
+    priceColor.value = colors[0];
 }
+
+
+function inputZhongliang(){
+    const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+    priceColor.value = colors[6];
+    zhongliangColor.value = colors[0];
+}
+
+
 
 </script>
 <style>
