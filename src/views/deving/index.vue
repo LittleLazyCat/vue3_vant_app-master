@@ -37,12 +37,12 @@
                         @clickNumber="clickNumber" :blurHide="true"></keyboard>
                 </td>
                 <td class="td">
-                    <van-button type="primary" class="commit-btn" @click="updatePrice">一键改价</van-button>
+                    <van-button type="primary" round="true" block="true"  class="commit-btn" @click="updatePrice" text="一键改价"></van-button>
                 </td>
             </tr>
             <tr>
                 <td class="td">
-                    
+
                     名&nbsp;&nbsp;称：
                 </td>
                 <td>
@@ -76,7 +76,7 @@
                     </form>
                 </td>
                 <td>
-                    <van-button type="primary" class="commit-btn" @click="clearAll">一键归零</van-button>
+                    <van-button type="primary" round="true" block="true" class="commit-btn" @click="clearAll" text="一键归零"></van-button>
                 </td>
             </tr>
             <tr>
@@ -170,15 +170,15 @@ const name = [
     { text: '打包带', value: '打包带' },
     { text: '防水布', value: '防水布' },
     { text: '白纸', value: '白纸' },
-    { text: '废旧物资', value: '废旧物资' }, 
+    { text: '废旧物资', value: '废旧物资' },
 ];
 const fieldValue = ref('');
-    const showPicker = ref(false);
+const showPicker = ref(false);
 
-    const onConfirm = ({ selectedOptions }) => {
-      showPicker.value = false;
-      fieldValue.value = selectedOptions[0].text;
-    };
+const onConfirm = ({ selectedOptions }) => {
+    showPicker.value = false;
+    fieldValue.value = selectedOptions[0].text;
+};
 
 
 
@@ -301,6 +301,9 @@ function inputZhongliang() {
 
 .background-color {
     background-color: white;
+    width: 95%;
+    left: 5px;
+    right:5px;
 }
 
 .table {
