@@ -172,16 +172,16 @@
         <table class="table table-striped table-hover table-bordered">
             <thead style="color: black;">
                 <tr>
-                    <th>序号</th>
-                    <th>名称</th>
+                    <th>No</th>
+                    <th>&nbsp;&nbsp;名&nbsp;&nbsp;&nbsp;&nbsp;称</th>
                     <th>单位</th>
-                    <th>单价</th>
-                    <th>重量</th>
+                    <th>单&nbsp;&nbsp;价</th>
+                    <th>重&nbsp;&nbsp;量</th>
                     <th>操作</th>
                 </tr>
             </thead>
             <tbody v-if="list.length !== 0" style="color: black;">
-                <tr v-for="(item, i) in list" :key="item">
+                <tr v-for="(item, i) in list" :key="item.id">
                     <td>{{ i + 1 }}</td>
                     <td v-if="unUpdateRow == true"><input class="form-control form-control-sm" style="text-align:center"
                             v-model="item.name"></td>
@@ -223,6 +223,7 @@ const unUpdateRow = ref(false)
 const priceColor = ref('#000000'); // 初始颜色为黑色
 const zhongliangColor = ref('#000000'); // 初始颜色为黑色
 const rowColor = ref('#000000');
+const id = ref(0)
 
 const option = [
     { text: '公斤', value: '公斤' },
@@ -295,7 +296,9 @@ function insert() {
         if (danwei.value.length == 0) {
             danwei.value = "公斤"
         }
-        list.value.push({ name: fieldValue.value + content.value, price: price.value, count: zhongliang.value, danwei: danwei.value })
+        list.value.unshift({id: list.value.length , name: fieldValue.value + content.value, price: price.value, count: zhongliang.value, danwei: danwei.value })
+       
+       
         zhongliang.value = ""
         content.value = ""
     } else {
