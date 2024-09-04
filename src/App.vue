@@ -4,9 +4,8 @@
   </van-config-provider>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
-import { RouterLink, RouterView } from 'vue-router'
+<script setup lang="ts"> 
+import {  RouterView } from 'vue-router'
 import { useUserStore } from '@/stores/user'
 import { storeToRefs } from "pinia";
 

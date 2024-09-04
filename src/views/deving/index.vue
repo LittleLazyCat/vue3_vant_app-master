@@ -23,23 +23,79 @@
                 </tr>
             </table>
         </div>
-
-        <table class="table">
-            <tr>
-                <td class="td" :style="{ color: priceColor }">单&nbsp;&nbsp;价：</td>
-                <td class="td">
+        <div :style="{ color: rowColor }">
+            <van-row justify="space-around" >
+                <van-col span="3" :style="{ color: priceColor }">单&nbsp;&nbsp;价：
+                </van-col>
+                <van-col span="13">
                     <form style="font-size:large;font-weight: bold;">
                         <input style="width:70%;" type="text" @click="inputPrice" keyboard="true" data-mode="di_git"
                             readonly v-model.number="price" ref="inputPriceBound">元
                     </form>
                     <keyboard :transitionTime="'0.5s'" :maxQuantify="10" :showKeyboard="showKeyboard"
                         @clickKey="clickKey" float :manyDict="manyDict" :singleDict="singleDict"
-                        @clickNumber="clickNumber" :blurHide="true"></keyboard>
-                </td>
-                <td class="td">
-                    <van-button type="primary" round="true" block="true"  class="commit-btn" @click="updatePrice" text="一键改价"></van-button>
-                </td>
-            </tr>
+                        @clickNumber="clickNumber" :blurHide="true">
+                    </keyboard>
+                </van-col>
+                <van-col span="8">
+                    <van-button type="primary" round block class="commit-btn" @click="updatePrice" text="一键改价">
+                    </van-button>
+                </van-col>
+            </van-row>
+
+            <van-row justify="space-around">
+                <van-col span="3"> 名&nbsp;&nbsp;称：
+                </van-col>
+                <van-col span="13">
+                    <van-field v-model="fieldValue" is-link readonly label="" placeholder="请选择产品"
+                        @click="showPicker = true" />
+                    <van-popup v-model:show="showPicker" round position="bottom">
+                        <van-picker :columns="name" @cancel="showPicker = false" @confirm="onConfirm" />
+                    </van-popup>
+                </van-col>
+                <van-col span="8">
+
+                </van-col>
+            </van-row>
+
+            <van-row justify="space-around">
+                <van-col span="3"> 备&nbsp;&nbsp;注：
+                </van-col>
+                <van-col span="13">
+                    <form style="font-size:large;font-weight: bold;">
+                        <input style="width:88%;" type="text" v-model="content">
+                    </form>
+                </van-col>
+                <van-col span="8">
+                    <van-button type="primary" round block class="commit-btn" @click="clearAll"
+                        text="一键归零"></van-button>
+                </van-col>
+            </van-row>
+
+            <van-row justify="space-around">
+                <van-col span="3" :style="{ color: zhongliangColor }">  重&nbsp;&nbsp;量：
+                </van-col>
+                <van-col span="13">
+                    <form style="font-size:large;font-weight: bold;">
+                        <input style="width:88%;" type="text" @click="inputZhongliang" keyboard="true"
+                            data-mode="di_git" readonly v-model.number="zhongliang">
+                    </form>
+                    <keyboard :transitionTime="'0.5s'" :maxQuantify="10" :showKeyboard="showKeyboard"
+                        @clickKey="clickKey" float :manyDict="manyDict" :singleDict="singleDict"
+                        @clickNumber="clickNumber" :blurHide="false">
+                    </keyboard>
+                </van-col>
+                <van-col span="8">
+                    <van-dropdown-menu direction="up">
+                        <van-dropdown-item v-model="danwei" :options="option" />
+                    </van-dropdown-menu>
+                </van-col>
+            </van-row>
+
+        </div>
+<!--
+        <table class="table">
+            
             <tr>
                 <td class="td">
 
@@ -51,7 +107,7 @@
                     <van-popup v-model:show="showPicker" round position="bottom">
                         <van-picker :columns="name" @cancel="showPicker = false" @confirm="onConfirm" />
                     </van-popup>
-                    <!--
+                    
                     <select style="font-size: x-large;" v-model="name">
                         <option disabled value="select"> 请选择产品</option>
                         <option value="打包带"  aria-checked="true">打包带</option>
@@ -60,12 +116,13 @@
                         <option value="废纸">废纸</option>
                         <option value=""></option>
                     </select>
-                    -->
+                    
                 </td>
                 <td>
 
                 </td>
             </tr>
+            
             <tr>
                 <td>
                     备&nbsp;&nbsp;注：
@@ -76,7 +133,8 @@
                     </form>
                 </td>
                 <td>
-                    <van-button type="primary" round="true" block="true" class="commit-btn" @click="clearAll" text="一键归零"></van-button>
+                    <van-button type="primary" round block class="commit-btn" @click="clearAll"
+                        text="一键归零"></van-button>
                 </td>
             </tr>
             <tr>
@@ -94,6 +152,10 @@
                         @clickNumber="clickNumber" :blurHide="false"></keyboard>
                 </td>
                 <td>
+                    <van-dropdown-menu direction="up">
+                        <van-dropdown-item v-model="danwei" :options="option" />
+                    </van-dropdown-menu>
+                  
                     <select style="font-size: x-large;" v-model="danwei">
                         <option disabled value="select"> 请选择单位</option>
                         <option value="公斤" checked="true">公斤</option>
@@ -103,7 +165,7 @@
                 </td>
             </tr>
         </table>
-
+-->
         <van-button type="primary" class="commit-btn" @click="insert">添加</van-button>
         <br>
 
@@ -148,20 +210,26 @@
 </template>
 <script setup lang='ts'>
 import { computed } from 'vue';
-import { reactive, ref } from 'vue';
-import { showToast } from 'vant';
+import { ref } from 'vue';
 import keyboard from "../components/keyboard/keyboardIndex.vue";
+import { showConfirmDialog } from 'vant';
+import { showDialog } from 'vant';
 
 const content = ref("")
 const price = ref()
-//const name  = ref("")
 const zhongliang = ref()
 const danwei = ref("")
 const unUpdateRow = ref(false)
 const priceColor = ref('#000000'); // 初始颜色为黑色
 const zhongliangColor = ref('#000000'); // 初始颜色为黑色
+const rowColor = ref('#000000');
 
-const value = ref("");
+const option = [
+    { text: '公斤', value: '公斤' },
+    { text: '斤', value: '斤' },
+    { text: '吨', value: '吨' },
+];
+
 const showKeyboard = ref(false);
 
 
@@ -231,18 +299,32 @@ function insert() {
         zhongliang.value = ""
         content.value = ""
     } else {
-        alert("数据不完整，无法添加！")
+        showDialog({
+            message: '数据不完整，无法添加！',
+        }).then(() => {
+            // on close
+        });
     }
 
 
 }
 
 function delThisItem(index: number) {
-    if (confirm("是否删除")) {
-        list.value = list.value.filter((item: any, itemIndex: number) => { return itemIndex !== index })
-    }
+    showConfirmDialog({
+        message:
+            '是否删除选中数据',
+    })
+        .then(() => {
+            list.value = list.value.filter((item: any, itemIndex: number) => { return itemIndex !== index })
+        })
+        .catch(() => {
+            // on cancel
+        });
 
 }
+
+
+
 
 function updatePrice() {
     list.value.forEach((v: { [x: string]: any; }) => {
@@ -260,20 +342,27 @@ function saveRow() {
 }
 
 function clearAll() {
-    if (confirm("是否归零")) {
-        list.value.splice(0, list.value.length);
-    }
+    showConfirmDialog({
+        message:
+            '是否归零',
+    })
+        .then(() => {
+            list.value.splice(0, list.value.length);
+        })
+        .catch(() => {
+            // on cancel
+        });
 }
 
 function inputPrice() {
-    const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+    const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF','#000000'];
     zhongliangColor.value = colors[6];
     priceColor.value = colors[0];
 }
 
 
 function inputZhongliang() {
-    const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF'];
+    const colors = ['#FF0000', '#00FF00', '#0000FF', '#FFFF00', '#FF00FF', '#00FFFF','#000000'];
     priceColor.value = colors[6];
     zhongliangColor.value = colors[0];
 }
@@ -303,7 +392,7 @@ function inputZhongliang() {
     background-color: white;
     width: 95%;
     left: 5px;
-    right:5px;
+    right: 5px;
 }
 
 .table {

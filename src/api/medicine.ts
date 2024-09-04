@@ -1,5 +1,5 @@
-import type { OrderPre, AddressItem, OrderDetail, Express } from '@/types/medicine'
-import { request } from '@/utils/request'
+import type { OrderPre, AddressItem, OrderDetail, Express } from '../types/medicine'
+import { request } from '../utils/request'
 
 // 查询药品订单预支付信息
 export const getMedicalOrderPre = (params: { prescriptionId: string }) =>
