@@ -2,13 +2,13 @@ import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router
 
 
 const router = createRouter({
-  history: createWebHistory(),
+  history: createWebHashHistory(),
   routes: [
 
     {
       path: '/',
       name: 'index',
-      redirect: 'deving',
+      redirect: '/deving',
       component: () => import('../views/deving/index.vue'),
       children: [
         {
